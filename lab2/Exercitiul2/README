@@ -1,0 +1,9 @@
+Ciurul lui Eratostene
+
+Sursa: https://himsen.github.io/pdf/Project1_parallel_algorithms_Torben.pdf
+
+O(1) = T(1) = n * ln(ln(n))
+O(n) = T(n) = n / ln(n)
+
+S(n) = T(1) / T(n) = ln(n) * ln(ln(n))
+R(n) = O(n) / O(n) = 1 / (ln(n) * ln(ln(n)))
