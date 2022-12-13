@@ -7,7 +7,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
-/* Used for writing yhe sepia image */
+/* Used for writing the sepia image */
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
 
@@ -71,13 +71,16 @@ int main() {
             /* Write the sepia image to the output file path */
             stbi_write_jpg(out_path, width, height, channels, sepia_image, 100);
 
-            printf("%s\n", file_path);
-            printf("%s\n", out_path);
+            printf("%s -> %s\n", file_path, out_path);
+
+            free(sepia_image);
+            stbi_image_free(img);
 
         }
     }
 
-
     closedir(inputDIRp);
+    closedir(outputDIRp);
+
     return 0;
 }
