@@ -78,7 +78,7 @@ int main() {
 
         }
     }
-
+    
     closedir(inputDIRp);
     closedir(outputDIRp);
 
