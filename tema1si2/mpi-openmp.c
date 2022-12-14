@@ -12,7 +12,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
 
-#define LEN 40
+#define LEN 60
 #define PARENT 0
 
 int main(int argc, char **argv) {
@@ -109,7 +109,6 @@ int main(int argc, char **argv) {
 
     MPI_Finalize();
     closedir(inputDIRp);
-    closedir(outputDIRp);
 
     return 0;
 }

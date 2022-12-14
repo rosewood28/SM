@@ -13,6 +13,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
 
+#define LEN 60
 #define NUM_THREADS 8
 
 struct argum {
@@ -65,7 +66,7 @@ int main() {
         if (entry->d_type == DT_REG) {
             
             /* Construct the path from where the initial image will be loaded */
-            char file_path[40] = "./original_images/";
+            char file_path[LEN] = "./original_images/";
             strcat(file_path, entry->d_name);
 
             /* Loading initial image */
@@ -77,7 +78,7 @@ int main() {
             }
 
             /* Replace "./original" with "./output" to create output file path */
-            char aux[40], out_path[40];
+            char aux[LEN], out_path[LEN];
             memmove(aux, file_path + 10, strlen(file_path) - 9);
             strcpy(out_path, "./output");
             strcat(out_path, aux);
@@ -145,7 +146,6 @@ int main() {
     }
 
     closedir(inputDIRp);
-    closedir(outputDIRp);
 
     return 0;
 }
