@@ -1,7 +1,26 @@
+Stan Sabina - 341C3
+
+Sepia filter
+
+Pentru a citi si scrie imaginile se foloseste biblioteca stb.
+Imaginile se citesc din folderul "original_images" si se scriu
+in folderul "output_images" dupa aplicarea filtrului pe fiecare
+pixel al imaginii.
+
+Pentru a compila se va folosi comanda "make version"
+unde version={serial, openmp, mpi, pthreads, mpi-openmp}.
+
+Exemplu: make openmp.
+
+Pentru a rula se va folosi comanda "make runversion"
+unde version={serial, openmp, mpi, pthreads, mpi-openmp}.
+
+Exemplu: make runopenmp.
+
+Surse:
 https://solarianprogrammer.com/2019/06/10/c-programming-reading-writing-images-stb_image-libraries/
 
 https://stackoverflow.com/questions/1926063/how-do-i-perform-arithmetic-in-a-makefile
 
 https://stackoverflow.com/questions/45404629/makefile-count-how-many-files
 
-mpio 5 -quiet mpi

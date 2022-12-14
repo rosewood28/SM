@@ -34,7 +34,7 @@ mpi-openmp: mpi-openmp.c
 	mpicc mpi-openmp.c -o mpi-openmp -lm -fopenmp
 
 runmpi-openmp: mpi-openmp
-	mpirun -np $(NP) --oversubscribe -quiet mpi
+	mpirun -np $(NP) --oversubscribe -quiet mpi-openmp
 
 clean:
 	rm -f serial openmp mpi pthreads mpi-openmp

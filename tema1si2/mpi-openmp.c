@@ -47,6 +47,7 @@ int main(int argc, char **argv) {
                 char file_path[LEN] = "./original_images/";
                 strcat(file_path, entry->d_name);
 
+                /* Send loading path to destination process */
                 MPI_Send(file_path, LEN, MPI_BYTE, dest, 0, MPI_COMM_WORLD);
 
                 /* Replace "./original" with "./output" to create output file path */
@@ -55,9 +56,11 @@ int main(int argc, char **argv) {
                 strcpy(out_path, "./output");
                 strcat(out_path, aux);
 
+                /* Send writing path to destination process */
                 MPI_Send(out_path, LEN, MPI_BYTE, dest, 1, MPI_COMM_WORLD);
                 
-                printf("Image %s was sent to process no. %d\n", out_path, dest);
+                memmove(aux, aux + 8, strlen(file_path) - 7);
+                printf("Image %s was sent to process %d\n", aux, dest);
             }
         }
     }
@@ -65,9 +68,9 @@ int main(int argc, char **argv) {
         /* Receive image's load and write paths */
         char file_path[LEN], out_path[LEN];
         MPI_Recv(&file_path, LEN, MPI_BYTE, PARENT, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        printf("Process %d Received1 %s\n", rank, file_path);
+        //printf("Process %d Received1 %s\n", rank, file_path);
         MPI_Recv(&out_path, LEN, MPI_BYTE, PARENT, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        printf("Process %d Received2 %s\n", rank, out_path);
+        //printf("Process %d Received2 %s\n", rank, out_path);
 
         /* Loading initial image */
         int width, height, channels;
@@ -101,7 +104,7 @@ int main(int argc, char **argv) {
         /* Write the sepia image to the output file path */
         stbi_write_jpg(out_path, width, height, channels, sepia_image, 100);
 
-        printf("RESULT:               %s -> %s in proc %d\n", file_path, out_path, rank);
+        printf("RESULT process %d:    %s -> %s\n", rank, file_path, out_path);
 
         free(sepia_image);
         stbi_image_free(img);

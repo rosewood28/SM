@@ -30,9 +30,6 @@ void *f(void *arg) {
     int start = s.id * (double) s.image_size / NUM_THREADS;
     int end = fmin((s.id + 1) * (double) s.image_size / NUM_THREADS, s.image_size);
 
-    printf("%d start %d\n", s.id, start);
-    printf("%d end %d\n", s.id, end);
-
     for(int i = start; i < end; i += s.channels) {
         s.sepia_image[i]     = (uint8_t)fmin(0.393 * s.img[i] + 0.769 * s.img[i + 1] + 0.189 * s.img[i + 2], 255.0);         /* Red   */
         s.sepia_image[i + 1] = (uint8_t)fmin(0.349 * s.img[i] + 0.686 * s.img[i + 1] + 0.168 * s.img[i + 2], 255.0);         /* Green */
@@ -93,23 +90,11 @@ int main() {
             /* Apply the sepia filter on the original image and save the result in sepia_image */
             int image_size = width * height * channels;
 
-            //o paralelizez
-            // for(int i = 0; i < image_size; i += channels) {
-            //     sepia_image[i]     = (uint8_t)fmin(0.393 * img[i] + 0.769 * img[i + 1] + 0.189 * img[i + 2], 255.0);         /* Red   */
-            //     sepia_image[i + 1] = (uint8_t)fmin(0.349 * img[i] + 0.686 * img[i + 1] + 0.168 * img[i + 2], 255.0);         /* Green */
-            //     sepia_image[i + 2] = (uint8_t)fmin(0.272 * img[i] + 0.534 * img[i + 1] + 0.131 * img[i + 2], 255.0);         /* Blue  */        
-                
-            //     if(channels == 4) 
-            //         sepia_image[i + 3] = img[i + 3];
-                
-            // }
-
-            //pthreads
             void *status;
             pthread_t threads[NUM_THREADS];
             struct argum arguments[NUM_THREADS];
 
-            // create threads
+            /* Create threads */
             for (int id = 0; id < NUM_THREADS; id++) {
                 arguments[id].id = id;
                 arguments[id].image_size = image_size;
@@ -118,7 +103,7 @@ int main() {
                 arguments[id].sepia_image = sepia_image;
                 
                 int r = pthread_create(&threads[id], NULL, f, (void *) &arguments[id]);
-                printf("Thread %d created.\n", id);
+                printf("Thread %d created\n", id);
 
                 if (r) {
                     printf("Error at creating thread %d\n", id);
